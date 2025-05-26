@@ -25,7 +25,6 @@ public class Main {
     private static final List<String> createdCategoryIds = new ArrayList<>();
     private static final List<String> createdProductIds = new ArrayList<>();
 
-
     public static void main(String[] args) {
         try {
             client = connectToWeaviate();
@@ -40,7 +39,7 @@ public class Main {
 
             if (!createdCategoryIds.isEmpty() && !createdProductIds.isEmpty()) {
                 System.out.println("\nFetching an object...");
-                fetchObject(createdProductIds.getFirst());
+                fetchObject(createdProductIds.get(0));
 
                 System.out.println("\nPerforming a nearText vector search...");
                 performNearTextSearch();
@@ -83,11 +82,10 @@ public class Main {
         client.collections.create(CATEGORY_COLLECTION_NAME,
                 collection -> collection
                         .properties(
-                                Property.text("name")
-                        ).vector(
+                                Property.text("name"))
+                        .vector(
                                 new VectorIndex<>(VectorIndex.IndexingStrategy.hnsw(),
-                                        Vectorizer.text2vecContextionary()))
-        );
+                                        Vectorizer.text2vecContextionary())));
 
         // 2. Create `Products` collection with a cross-reference to `Categories`
         client.collections.create(PRODUCT_COLLECTION_NAME,
@@ -95,28 +93,24 @@ public class Main {
                         .properties(
                                 Property.text("name"),
                                 Property.text("description"),
-                                Property.integer("price")
-                        ).references(Property.reference("hasCategory", CATEGORY_COLLECTION_NAME))
+                                Property.integer("price"))
+                        .references(Property.reference("hasCategory", CATEGORY_COLLECTION_NAME))
                         .vector(
                                 new VectorIndex<>(VectorIndex.IndexingStrategy.hnsw(),
-                                        Vectorizer.text2vecContextionary()))
-        );
+                                        Vectorizer.text2vecContextionary())));
     }
-
     private static void populateCollections() throws IOException {
         var categories = client.collections.use(CATEGORY_COLLECTION_NAME);
         var products = client.collections.use(PRODUCT_COLLECTION_NAME);
-
+        
         // 1. Add a category
         WeaviateObject<Map<String, Object>> categoryResult = categories.data.insert(
-                Map.of("name", "Clothes")
-        );
+                Map.of("name", "Clothes"));
         System.out.println(categoryResult);
         createdCategoryIds.add(categoryResult.metadata().id());
 
         WeaviateObject<Map<String, Object>> techCategoryResult = categories.data.insert(
-                Map.of("name", "Tech")
-        );
+                Map.of("name", "Tech"));
         createdCategoryIds.add(techCategoryResult.metadata().id());
 
         // 2. Add a product linked to the category
@@ -125,8 +119,7 @@ public class Main {
                         "description", "A very nice shirt...",
                         "price", 1000),
                 opt -> opt.reference(
-                        "hasCategory", Reference.collection(CATEGORY_COLLECTION_NAME, categoryResult.metadata().id()))
-        );
+                        "hasCategory", Reference.collection(CATEGORY_COLLECTION_NAME, categoryResult.metadata().id())));
         System.out.println(productResult);
         createdProductIds.add(productResult.metadata().id());
 
@@ -136,8 +129,7 @@ public class Main {
                         "price", 800),
                 opt -> opt.reference(
                         "hasCategory", Reference.collection(CATEGORY_COLLECTION_NAME,
-                                techCategoryResult.metadata().id()))
-        );
+                                techCategoryResult.metadata().id())));
         createdProductIds.add(phoneProductResult.metadata().id());
 
         WeaviateObject<Map<String, Object>> watchProductResult = products.data.insert(
@@ -146,8 +138,7 @@ public class Main {
                         "price", 600),
                 opt -> opt.reference(
                         "hasCategory", Reference.collection(CATEGORY_COLLECTION_NAME,
-                                techCategoryResult.metadata().id()))
-        );
+                                techCategoryResult.metadata().id())));
         createdProductIds.add(watchProductResult.metadata().id());
     }
 
@@ -172,8 +163,8 @@ public class Main {
         AggregateGroupByResponse response = products.aggregate.overAll(
                 new GroupBy("name"),
                 with -> with.metrics(
-                                Metric.integer("price", calculate -> calculate
-                                        .min().max().count()))
+                        Metric.integer("price", calculate -> calculate
+                                .min().max().count()))
                         .includeTotalCount());
         System.out.println("Aggregate query result: " + response);
     }
