@@ -2,10 +2,7 @@ package io.weaviate;
 
 import io.weaviate.client6.Config;
 import io.weaviate.client6.WeaviateClient;
-import io.weaviate.client6.v1.collections.Property;
-import io.weaviate.client6.v1.collections.Reference;
-import io.weaviate.client6.v1.collections.Vectorizer;
-import io.weaviate.client6.v1.collections.VectorIndex;
+import io.weaviate.client6.v1.collections.*;
 import io.weaviate.client6.v1.collections.aggregate.AggregateGroupByRequest.GroupBy;
 import io.weaviate.client6.v1.collections.aggregate.AggregateGroupByResponse;
 import io.weaviate.client6.v1.collections.aggregate.Metric;
@@ -13,17 +10,28 @@ import io.weaviate.client6.v1.collections.object.WeaviateObject;
 import io.weaviate.client6.v1.collections.query.QueryResult;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.*;
 
 public class Main {
 
     private static final String CATEGORY_COLLECTION_NAME = "Category";
     private static final String PRODUCT_COLLECTION_NAME = "Product";
+    private static final String PRODUCT_SHIRT_IMAGE_URL = "https://upload.wikimedia" +
+            ".org/wikipedia/commons/0/01/Charvet_shirt.jpg";
+    private static final String PRODUCT_PHONE_IMAGE_URL = "https://upload.wikimedia" +
+            ".org/wikipedia/commons/d/d2/IPhone_16_Pro_Vector.svg";
+    private static final String PRODUCT_WATCH_IMAGE_URL = "https://upload.wikimedia" +
+            ".org/wikipedia/commons/c/cd/Casio_OCEANUS_OCW-S1350PC-1AJR_01.JPG";
 
     private static WeaviateClient client;
     // Store IDs of created objects for later use
     private static final List<String> createdCategoryIds = new ArrayList<>();
     private static final List<String> createdProductIds = new ArrayList<>();
+
 
     public static void main(String[] args) {
         try {
@@ -43,6 +51,9 @@ public class Main {
 
                 System.out.println("\nPerforming a nearText vector search...");
                 performNearTextSearch();
+
+                //System.out.println("\nPerforming a nearImage vector search...");
+                //performNearImageSearch();
 
                 System.out.println("\nPerforming an aggregate query...");
                 performAggregateQuery();
@@ -93,16 +104,19 @@ public class Main {
                         .properties(
                                 Property.text("name"),
                                 Property.text("description"),
-                                Property.integer("price"))
-                        .references(Property.reference("hasCategory", CATEGORY_COLLECTION_NAME))
+                                Property.integer("price"),
+                                Property.blob("image")
+                        ).references(Property.reference("hasCategory", CATEGORY_COLLECTION_NAME))
                         .vector(
                                 new VectorIndex<>(VectorIndex.IndexingStrategy.hnsw(),
-                                        Vectorizer.text2vecContextionary())));
+                                        Vectorizer.text2vecContextionary()))
+        );
     }
+
     private static void populateCollections() throws IOException {
         var categories = client.collections.use(CATEGORY_COLLECTION_NAME);
         var products = client.collections.use(PRODUCT_COLLECTION_NAME);
-        
+
         // 1. Add a category
         WeaviateObject<Map<String, Object>> categoryResult = categories.data.insert(
                 Map.of("name", "Clothes"));
@@ -117,7 +131,8 @@ public class Main {
         WeaviateObject<Map<String, Object>> productResult = products.data.insert(
                 Map.of("name", "Some shirt",
                         "description", "A very nice shirt...",
-                        "price", 1000),
+                        "price", 1000,
+                        "image", fetchAndEncodeImage(PRODUCT_SHIRT_IMAGE_URL)),
                 opt -> opt.reference(
                         "hasCategory", Reference.collection(CATEGORY_COLLECTION_NAME, categoryResult.metadata().id())));
         System.out.println(productResult);
@@ -126,7 +141,8 @@ public class Main {
         WeaviateObject<Map<String, Object>> phoneProductResult = products.data.insert(
                 Map.of("name", "Some phone is coming out",
                         "description", "New features, new hardware, very exciting phone...",
-                        "price", 800),
+                        "price", 800,
+                        "image", fetchAndEncodeImage(PRODUCT_PHONE_IMAGE_URL)),
                 opt -> opt.reference(
                         "hasCategory", Reference.collection(CATEGORY_COLLECTION_NAME,
                                 techCategoryResult.metadata().id())));
@@ -134,8 +150,9 @@ public class Main {
 
         WeaviateObject<Map<String, Object>> watchProductResult = products.data.insert(
                 Map.of("name", "Some watch is coming out",
-                        "description", "Need to know what time it is...",
-                        "price", 600),
+                        "description", "Need to know what time it is?...",
+                        "price", 600,
+                        "image", fetchAndEncodeImage(PRODUCT_WATCH_IMAGE_URL)),
                 opt -> opt.reference(
                         "hasCategory", Reference.collection(CATEGORY_COLLECTION_NAME,
                                 techCategoryResult.metadata().id())));
@@ -152,9 +169,19 @@ public class Main {
     private static void performNearTextSearch() {
         var products = client.collections.use(PRODUCT_COLLECTION_NAME);
 
-        QueryResult<Map<String, Object>> queryResult = products.query.nearText("phone",
-                opt -> opt.limit(1));
+        QueryResult<Map<String, Object>> queryResult = products.query.nearText(
+                "phone",
+                opt -> opt.returnProperties("name"));
         System.out.println("NearText query result: " + queryResult.objects);
+    }
+
+    private static void performNearImageSearch() throws IOException {
+        var products = client.collections.use(PRODUCT_COLLECTION_NAME);
+
+        QueryResult<Map<String, Object>> queryResult = products.query.nearImage(
+                fetchAndEncodeImage(PRODUCT_PHONE_IMAGE_URL),
+                opt -> opt.limit(1));
+        System.out.println("NearText query result: " + queryResult);
     }
 
     private static void performAggregateQuery() {
@@ -184,5 +211,27 @@ public class Main {
     private static void deleteCollections() throws IOException {
         client.collections.delete(PRODUCT_COLLECTION_NAME);
         client.collections.delete(CATEGORY_COLLECTION_NAME);
+    }
+
+    // Helper method to fetch and encode the image in Weaviate-friendly format
+    private static String fetchAndEncodeImage(String imageUrl) throws IOException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(imageUrl))
+                    .GET()
+                    .build();
+
+            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+
+            if (response.statusCode() == 200) {
+                byte[] imageBytes = response.body();
+                return Base64.getEncoder().encodeToString(imageBytes);
+            } else {
+                throw new IOException("Failed to fetch image: HTTP " + response.statusCode());
+            }
+        } catch (Exception e) {
+            throw new IOException("Error fetching or encoding image: " + e.getMessage(), e);
+        }
     }
 }
