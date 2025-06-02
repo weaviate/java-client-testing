@@ -8,29 +8,7 @@ import java.io.IOException;
 
 public class CollectionsCreate {
     public static void run(WeaviateClient client) throws IOException {
-        // Create `Category` collection
-        client.collections.create(Constants.CATEGORY_COLLECTION_NAME,
-                collection -> collection
-                        .properties(Property.text("name"))
-                        .vector(new VectorIndex<>(
-                                VectorIndex.IndexingStrategy.hnsw(),
-                                Vectorizer.text2vecContextionary()
-                        ))
-        );
-
-        // Create `Product` collection
-        client.collections.create(Constants.PRODUCT_COLLECTION_NAME,
-                collection -> collection
-                        .properties(
-                                Property.text("name"),
-                                Property.text("description"),
-                                Property.integer("price"),
-                                Property.blob("image")
-                        ).references(Property.reference("hasCategory", Constants.CATEGORY_COLLECTION_NAME))
-                        .vector(new VectorIndex<>(
-                                VectorIndex.IndexingStrategy.hnsw(),
-                                Vectorizer.text2vecContextionary()
-                        ))
-        );
+        // See Weaviate docs:
+        // https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection
     }
 }

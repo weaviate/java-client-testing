@@ -5,10 +5,8 @@ import io.weaviate.client6.WeaviateClient;
 
 public class ConnectToWeaviate {
     public static WeaviateClient run() {
-        String scheme = "http";
-        String httpHost = "localhost:8080";
-        String grpcHost = "localhost:50051";
-        Config config = new Config(scheme, httpHost, grpcHost);
-        return new WeaviateClient(config);
+        // See Weaviate docs:
+        // https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/connections/connect-local#no-authentication-enabled
+        return null;
     }
 }

@@ -6,14 +6,7 @@ import java.util.List;
 
 public class DataDelete {
     public static void run(WeaviateClient client, List<String> categoryIds, List<String> productIds) throws IOException {
-        var products = client.collections.use(Constants.PRODUCT_COLLECTION_NAME);
-        var categories = client.collections.use(Constants.CATEGORY_COLLECTION_NAME);
-
-        for (var productId : productIds) {
-            products.data.delete(productId);
-        }
-        for (var categoryId : categoryIds) {
-            categories.data.delete(categoryId);
-        }
+        // See Weaviate docs:
+        // https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-objects/delete#delete-object-by-id
     }
 }
