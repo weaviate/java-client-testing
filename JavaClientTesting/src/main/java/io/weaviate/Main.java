@@ -30,9 +30,6 @@ public class Main {
                 System.out.println("\nPerforming a nearText vector search...");
                 QueryNearText.run(client);
 
-                // System.out.println("\nPerforming a nearImage vector search...");
-                // QueryNearImage.run(client);
-
                 System.out.println("\nPerforming an aggregate query...");
                 QueryAggregate.run(client);
 

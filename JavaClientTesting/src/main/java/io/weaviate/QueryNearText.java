@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class QueryNearText {
     public static void run(WeaviateClient client) {
-        // See Weaviate docs:
-        // https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/similarity#search-with-text
+        // Perform the following nearText query: "phone"
+        // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/similarity#search-with-text
     }
 }
