@@ -8,11 +8,18 @@ import java.io.IOException;
 
 public class CollectionsCreate_2 {
     public static void run(WeaviateClient client) throws IOException {
-        // Create "Category" collection with text property "name" and text2vecContextionary vectorizer
-        // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection
+        // Create "Category" collection 
+        // The collection has a text property "name" 
+        // The collection uses text2vecContextionary vectorizer
+        //
+        // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
 
-        // Create "Product" collection with text properties "name" and "description", integer property "price", 
-        // s reference "hasCategory" to the "Category" collection and text2vecContextionary vectorizer
-        // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection
+        // Create "Product" collection 
+        // The collection has text properties "name" and "description" and an integer property "price"
+        // The collection has a reference "hasCategory" to the "Category" collection 
+        // The collection uses  text2vecContextionary vectorizer
+        //
+        // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
+        //                    https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/cross-references#define-a-cross-reference-property
     }
 }

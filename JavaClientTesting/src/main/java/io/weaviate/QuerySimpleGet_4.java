@@ -9,6 +9,7 @@ import java.util.Optional;
 public class QuerySimpleGet_4 {
     public static void run(WeaviateClient client, String productId) throws IOException {
         // Get and print the obect with the ID "productId"
+        //
         // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/basics#get-object-by-id
     }
 }
