@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataInsert {
+public class DataInsert_3 {
     public static Map<String, List<String>> run(WeaviateClient client) throws IOException {
         // Create two "Category" objects with names "Clothes" and "Tech"
         // Create two "Product" objects:
