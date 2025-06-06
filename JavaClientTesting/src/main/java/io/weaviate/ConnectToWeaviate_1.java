@@ -8,7 +8,8 @@ public class ConnectToWeaviate_1 {
         // Connect to the local Weaviate instance and return the Client object
         // Connection details {scheme: "http", httpHost: "localhost:8080", grpcHost: "localhost:50051"}
         // 
-        // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/connections/connect-local#no-authentication-enabled
+        // See Weaviate docs: 
+        //      Connect to Weaviate: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/connections/connect-local#no-authentication-enabled
         return null;
     }
 }

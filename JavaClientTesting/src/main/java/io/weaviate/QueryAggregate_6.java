@@ -12,9 +12,9 @@ public class QueryAggregate_6 {
         //      Also include the total count of all products across all groups.
         //
         // See Weaviate docs:
-        //      Count: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#retrieve-the-count-meta-property
         //      Text properties: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#aggregate-text-properties
         //      Integer properties: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#aggregate-int-properties
+        //      Count: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#retrieve-the-count-meta-property
         //      Group by: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#aggregate-groupedby-properties
     }
 }

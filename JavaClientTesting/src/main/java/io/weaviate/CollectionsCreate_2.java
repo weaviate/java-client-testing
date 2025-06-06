@@ -12,14 +12,16 @@ public class CollectionsCreate_2 {
         // The collection has a text property "name" 
         // The collection uses text2vecContextionary vectorizer
         //
-        // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
+        // See Weaviate docs: 
+        //      Create a collection with properties: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
 
         // Create "Product" collection 
         // The collection has text properties "name" and "description" and an integer property "price"
         // The collection has a reference "hasCategory" to the "Category" collection 
         // The collection uses  text2vecContextionary vectorizer
         //
-        // See Weaviate docs: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
-        //                    https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/cross-references#define-a-cross-reference-property
+        // See Weaviate docs: 
+        //      Create a collection with properties: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
+        //      Define a cross-reference: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/cross-references#define-a-cross-reference-property
     }
 }
