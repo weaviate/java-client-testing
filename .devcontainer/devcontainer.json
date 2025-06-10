@@ -34,9 +34,13 @@
     }
   },
 
+  "containerEnv": {
+    "JAVA_HOME": "/usr/lib/jvm/msopenjdk-current"
+  },
+
   "forwardPorts": [8080, 50051],
   
-  "postCreateCommand": "sudo apt update && sudo apt install -y maven && cd JavaClientTesting && mvn clean install",
+  "postCreateCommand": "sudo apt update && sudo apt install -y maven && export JAVA_HOME=/usr/lib/jvm/msopenjdk-current && echo 'export JAVA_HOME=/usr/lib/jvm/msopenjdk-current' >> ~/.bashrc && mvn clean install",
   
   "remoteUser": "vscode",
   

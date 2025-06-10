@@ -5,7 +5,7 @@ import io.weaviate.client6.v1.collections.aggregate.AggregateGroupByRequest.Grou
 import io.weaviate.client6.v1.collections.aggregate.AggregateGroupByResponse;
 import io.weaviate.client6.v1.collections.aggregate.Metric;
 
-public class QueryAggregate_6 {
+public class Step6_QueryAggregate {
     public static void run(WeaviateClient client) {
         // Perform the following aggregate query: 
         //      Group all products by their name, and for each group, calculate the minimum price, maximum price, and count of products. 

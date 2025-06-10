@@ -3,7 +3,7 @@ package io.weaviate;
 import io.weaviate.client6.WeaviateClient;
 import java.io.IOException;
 
-public class CollectionsDelete_8 {
+public class Step8_CollectionsDelete {
     public static void run(WeaviateClient client) throws IOException {
         // Delete both "Category" and "Product" collection
         //

@@ -4,7 +4,7 @@ import io.weaviate.client6.WeaviateClient;
 import io.weaviate.client6.v1.collections.query.QueryResult;
 import java.util.Map;
 
-public class QueryNearText_5 {
+public class Step5_QueryNearText {
     public static void run(WeaviateClient client) {
         // Perform the following nearText query on the "Product" collection: {query: "phone"}
         //

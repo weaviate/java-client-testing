@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 
-public class QuerySimpleGet_4 {
+public class Step4_QuerySimpleGet {
     public static void run(WeaviateClient client, String productId) throws IOException {
         // Get and print the obect with the ID "productId"
         //
