@@ -9,5 +9,8 @@ public class CollectionsDelete_8 {
         //
         // See Weaviate docs:
         //      Delete collections: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#delete-a-collection
+
+        client.collections.delete("Product");
+        client.collections.delete("Categories");
     }
 }

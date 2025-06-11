@@ -12,40 +12,41 @@ public class Main {
         WeaviateClient client = null;
         try {
             // STEP 1
-            // client = ConnectToWeaviate_1.run();
-            // System.out.println("Successfully connected to Weaviate.");
+            client = ConnectToWeaviate_1.run();
+            System.out.println("Successfully connected to Weaviate.");
 
             // STEP 2
-            // System.out.println("\nCreating collections...");
-            // CollectionsCreate_2.run(client);
+            System.out.println("\nCreating collections...");
+            CollectionsCreate_2.run(client);
 
             // STEP 3
             Map<String, List<String>> createdIds = new HashMap<>();
-            // System.out.println("\nPopulating collections...");
-            // createdIds = DataInsert_3.run(client);
+            System.out.println("\nPopulating collections...");
+            createdIds = DataInsert_3.run(client);
             List<String> createdCategoryIds = createdIds.get("categoryIds");
             List<String> createdProductIds = createdIds.get("productIds");
 
             if (!createdCategoryIds.isEmpty() && !createdProductIds.isEmpty()) {
                 // STEP 4
-                // System.out.println("\nFetching an object by ID...");
-                // QuerySimpleGet_4.run(client, createdProductIds.get(0));
+                System.out.println("\nFetching an object by ID...");
+                QuerySimpleGet_4.run(client, createdProductIds.get(0));
 
                 // STEP 5
-                // System.out.println("\nPerforming a nearText vector search...");
-                // QueryNearText_5.run(client);
+                System.out.println("\nPerforming a nearText vector search...");
+                QueryNearText_5.run(client);
 
                 // STEP 6
-                // System.out.println("\nPerforming an aggregate query...");
-                // QueryAggregate_6.run(client);
+                System.out.println("\nPerforming an aggregate query...");
+                QueryAggregate_6.run(client);
 
                 // STEP 7
-                // System.out.println("\nDeleting created objects...");
-                // DataDelete_7.run(client, createdCategoryIds, createdProductIds);
+                System.out.println("\nDeleting created objects...");
+                DataDelete_7.run(client, createdCategoryIds, createdProductIds);
+
             }
             // STEP 8
-            // System.out.println("\nDeleting collections (post-run cleanup)...");
-            // CollectionsDelete_8.run(client);
+            System.out.println("\nDeleting collections (post-run cleanup)...");
+            CollectionsDelete_8.run(client);
 
         } catch (Exception e) {
             System.err.println("\nAn error occurred during the demo: " + e.getMessage());

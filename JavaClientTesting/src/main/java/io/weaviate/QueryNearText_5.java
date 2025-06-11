@@ -10,5 +10,19 @@ public class QueryNearText_5 {
         //
         // See Weaviate docs: 
         //      Vector search: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/similarity#search-with-text
+
+        
+
+        var collection = client.collections.use("Product");
+        var result = collection.query.nearText(
+            "shirt",
+            opt -> opt.returnProperties("description", "price")
+                .limit(1)
+        );
+
+        System.err.println("––––––––––––––––––––––––––––––––––––––––––––––––");
+        System.err.println(result);
+        System.err.println(result.objects.size());
+        System.err.println(result.objects.get(0).properties);
     }
 }

@@ -24,8 +24,41 @@ public class DataInsert_3 {
         //      Create a new object: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-objects/create#create-an-object
         //      Create an object with a cross-reference: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-objects/create#create-an-object
 
+        Map<String, Object> c1 = Map.of("name", "Clothes");
+        Map<String, Object>  c2 = Map.of("name", "Technology");
+
+        var category_col = client.collections.use("Category");
         List<String> createdCategoryIds = new ArrayList<>();
+        
+        createdCategoryIds.add(
+            category_col.data.insert(c1).metadata().id()
+        );
+        createdCategoryIds.add(
+            category_col.data.insert(c2).metadata().id()
+        );
+
+        var product_col = client.collections.use("Product");
         List<String> createdProductIds = new ArrayList<>();
+
+        Map<String, Object>  p1 = Map.of(
+            "name", "Some shirt",
+            "description", "A very nice shirt...",
+            "price", 20
+            // "hasCategory", "Clothes"
+        );
+        Map<String, Object>  p2 = Map.of(
+            "name", "Some phone",
+            "description", "A very nice phone...",
+            "price", 1000
+            // "hasCategory", "Tech"
+        );
+
+        createdProductIds.add(
+            product_col.data.insert(p1).metadata().id()
+        );
+        createdProductIds.add(
+            product_col.data.insert(p2).metadata().id()
+        );
 
         // This is where the object creation code goes
 

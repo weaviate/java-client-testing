@@ -16,5 +16,19 @@ public class QueryAggregate_6 {
         //      Integer properties: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#aggregate-int-properties
         //      Count: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#retrieve-the-count-meta-property
         //      Group by: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#aggregate-groupedby-properties
+
+        var collection = client.collections.use("Product");
+        var res = collection.aggregate.overAll(
+            // "name",
+            new GroupBy("name"),
+            opt -> opt.metrics(
+                Metric.integer("price", m -> m.min().max()),
+                Metric.text("name", m -> m.topOccurences())
+            )
+            .includeTotalCount()
+            .objectLimit(10)
+        );
+
+        System.out.println(res);
     }
 }
