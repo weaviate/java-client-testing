@@ -1,4 +1,4 @@
-# Weaviate Java Client - Alpha testing
+# Weaviate Java Client - User testing
 
 A starter project for testing the Java client v6 (alpha2 release).
 
