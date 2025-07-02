@@ -2,21 +2,19 @@ package io.weaviate;
 
 import io.weaviate.client6.WeaviateClient;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 
     // Boolean variables to control execution flow
-    private static boolean step1_connect = false;
-    private static boolean step2_createCollections = false;
-    private static boolean step3_populateCollections = false;
-    private static boolean step4_fetchById = false;
-    private static boolean step5_nearTextSearch = false;
-    private static boolean step6_aggregateQuery = false;
-    private static boolean step7_deleteObjects = false;
-    private static boolean step8_deleteCollections = false;
+    private static boolean step1_connect = true;
+    private static boolean step2_createCollections = true;
+    private static boolean step3_populateCollections = true;
+    private static boolean step4_fetchById = true;
+    private static boolean step5_nearTextSearch = true;
+    private static boolean step6_aggregateQuery = true;
+    private static boolean step7_deleteObjects = true;
+    private static boolean step8_deleteCollections = true;
 
     public static void main(String[] args) {
         try {
@@ -39,7 +37,6 @@ public class Main {
             System.out.println("===== Step 1: Connect to Weaviate =====");
             System.out.println("===============================");
             client = Step1_ConnectToWeaviate.run();
-            System.out.println("Successfully connected to Weaviate.");
 
             // STEP 2: Create collections
             if (!step2_createCollections)
@@ -47,7 +44,9 @@ public class Main {
             System.out.println("\n===============================");
             System.out.println("===== Step 2: Create Collections =====");
             System.out.println("===============================");
+            cleanup(client); // Ensure previous collections are deleted before creating new ones
             Step2_CollectionsCreate.run(client);
+            System.out.println("Collections created successfully.");
 
             // STEP 3: Populate collections
             if (!step3_populateCollections)
@@ -61,6 +60,7 @@ public class Main {
                 System.out.println("No data was created, skipping query steps.");
                 return;
             }
+            System.out.println("Objects created successfully.");
 
             // STEP 4: Fetch object by ID
             if (!step4_fetchById)
@@ -71,6 +71,7 @@ public class Main {
             Step4_QuerySimpleGet.run(client, createdProductIds.get(0));
 
             // STEP 5: Perform nearText vector search
+            Thread.sleep(1000); // Wait for 1 second
             if (!step5_nearTextSearch)
                 return;
             System.out.println("\n===============================");
@@ -112,5 +113,9 @@ public class Main {
                 }
             }
         }
+    }
+
+    private static void cleanup(WeaviateClient client) throws IOException {
+        client.collections.delete(Constants.PRODUCT_COLLECTION_NAME);
     }
 }

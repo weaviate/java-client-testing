@@ -6,9 +6,11 @@ import java.util.Map;
 
 public class Step5_QueryNearText {
     public static void run(WeaviateClient client) {
-        // Perform the following nearText query on the "Product" collection: {query: "phone"}
-        //
-        // See Weaviate docs: 
-        //      Vector search: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/similarity#search-with-text
+        var products = client.collections.use(Constants.PRODUCT_COLLECTION_NAME);
+        QueryResult<Map<String, Object>> result = products.query.nearText(
+                "phone",
+                opt -> opt.returnProperties("name")
+        );
+        System.out.println("NearText query result: " + result.objects);
     }
 }

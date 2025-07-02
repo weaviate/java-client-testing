@@ -8,9 +8,8 @@ import java.util.Optional;
 
 public class Step4_QuerySimpleGet {
     public static void run(WeaviateClient client, String productId) throws IOException {
-        // Get and print the obect with the ID "productId"
-        //
-        // See Weaviate docs: 
-        //      Get object by ID: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/basics#get-object-by-id
+        var products = client.collections.use(Constants.PRODUCT_COLLECTION_NAME);
+        Optional<WeaviateObject<Map<String, Object>>> result = products.data.get(productId);
+        System.out.println("Fetched product: " + result);
     }
 }

@@ -5,24 +5,26 @@ import io.weaviate.client6.v1.collections.object.WeaviateObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Step3_DataInsert {
     public static List<String> run(WeaviateClient client) throws IOException {
-        // Create two "Product" objects:
-        //      {name: "Some shirt", description": "A very nice shirt...", category "Clothes", price: 20}
-        //      {name: "Some jacket", description": "A very nice jacket...", category "Clothes", price: 60}
-        //      {name: "Some phone", description": "A very nice phone...", category "Technology", price: 1000}
-        //
-        // Return the created object IDs in the "createdProductIds" list
-        //
-        // See Weaviate docs: 
-        //      Create a new object: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-objects/create#create-an-object
-        //      Create an object with a cross-reference: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-objects/create#create-an-object
-
         List<String> createdProductIds = new ArrayList<>();
+        var products = client.collections.use(Constants.PRODUCT_COLLECTION_NAME);
 
-        // This is where the object creation code goes
-        // createdProductIds.add(...) // Add the objects to the appropriate list once created
+        WeaviateObject<Map<String, Object>> p1 = products.data.insert(
+                Map.of("name", "Some shirt", "description", "A very nice shirt...", "price", 1000));
+        createdProductIds.add(p1.metadata().id());
+
+        WeaviateObject<Map<String, Object>> p2 = products.data.insert(
+                Map.of("name", "Some phone is coming out", "description", "New features, new hardware...", "price",
+                        800));
+        createdProductIds.add(p2.metadata().id());
+
+        WeaviateObject<Map<String, Object>> p3 = products.data.insert(
+                Map.of("name", "Some watch is coming out", "description", "Need to know what time it is?...", "price",
+                        600));
+        createdProductIds.add(p3.metadata().id());
 
         return createdProductIds;
     }
