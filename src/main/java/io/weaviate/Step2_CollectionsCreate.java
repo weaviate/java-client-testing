@@ -9,8 +9,8 @@ import java.io.IOException;
 public class Step2_CollectionsCreate {
     public static void run(WeaviateClient client) throws IOException {
         // Create "Product" collection 
-        // The collection has text properties "name", "category", "description" and an integer property "price"
-        // The collection uses the text2vecContextionary vectorizer
+        // The collection has text properties "name", "description" and an integer property "price"
+        // The collection uses the text2vecContextionary vectorizer and HNSW vector index
         //
         // See Weaviate docs: 
         //      Create a collection with properties: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
