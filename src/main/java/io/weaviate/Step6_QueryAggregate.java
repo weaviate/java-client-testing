@@ -10,7 +10,7 @@ public class Step6_QueryAggregate {
         //      Group all products by their name and for each group find the maximum price.
         //
         // See Weaviate docs:
-        //      Integer properties: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#aggregate-int-properties
-        //      Group by: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/aggregate#aggregate-groupedby-properties
+        //      Integer properties: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/search/aggregate#aggregate-int-properties
+        //      Group by: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/search/aggregate#aggregate-groupedby-properties
     }
 }

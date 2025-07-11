@@ -8,7 +8,7 @@ public class Step1_ConnectToWeaviate {
         // Connection details {httpHost: "localhost", httpPort: "8080"}
         // 
         // See Weaviate docs: 
-        //      Connect to Weaviate: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/connections/connect-local#no-authentication-enabled
+        //      Connect to Weaviate: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/connections/connect-local#no-authentication-enabled
         return null;
     }
 }

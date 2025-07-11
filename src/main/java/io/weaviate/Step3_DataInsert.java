@@ -16,7 +16,7 @@ public class Step3_DataInsert {
         // Return the created object IDs in the "createdProductIds" list
         //
         // See Weaviate docs: 
-        //      Create a new object: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-objects/create#create-an-object
+        //      Create a new object: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/manage-objects/create#create-an-object
 
         List<String> createdProductIds = new ArrayList<>();
 

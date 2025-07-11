@@ -7,6 +7,6 @@ public class Step5_QueryNearText {
         // Perform the following nearText query on the "Product" collection: {query: "phone"}
         //
         // See Weaviate docs: 
-        //      Vector search: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/similarity#search-with-text
+        //      Vector search: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/search/similarity#search-with-text
     }
 }

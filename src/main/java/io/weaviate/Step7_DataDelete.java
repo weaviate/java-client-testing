@@ -9,6 +9,6 @@ public class Step7_DataDelete {
         // Use the list of object IDs to delete all objects
         //
         // See Weaviate docs: 
-        //      Delete objects: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-objects/delete#delete-object-by-id
+        //      Delete objects: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/manage-objects/delete#delete-object-by-id
     }
 }

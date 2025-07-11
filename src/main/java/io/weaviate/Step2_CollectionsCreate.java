@@ -12,6 +12,6 @@ public class Step2_CollectionsCreate {
         // The collection uses the text2vecContextionary vectorizer and has vector named "default"
         //
         // See Weaviate docs: 
-        //      Create a collection with properties: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
+        //      Create a collection with properties: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/manage-collections/collection-operations#create-a-collection-and-define-properties
     }
 }

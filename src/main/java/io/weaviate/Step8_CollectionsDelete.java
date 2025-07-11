@@ -8,6 +8,6 @@ public class Step8_CollectionsDelete {
         // Delete the "Product" collection
         //
         // See Weaviate docs:
-        //      Delete collections: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/manage-collections/collection-operations#delete-a-collection
+        //      Delete collections: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/manage-collections/collection-operations#delete-a-collection
     }
 }

@@ -11,6 +11,6 @@ public class Step4_QuerySimpleGet {
         // Also print out the metadata, properties, and vector of the object
         //
         // See Weaviate docs: 
-        //      Get object by ID: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/basics#get-object-by-id
+        //      Get object by ID: https://java-client-v6--docs-weaviate-io.netlify.app/weaviate/search/basics#get-object-by-id
     }
 }
