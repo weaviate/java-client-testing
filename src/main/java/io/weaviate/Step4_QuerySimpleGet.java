@@ -1,15 +1,18 @@
 package io.weaviate;
 
-import io.weaviate.client6.WeaviateClient;
-import io.weaviate.client6.v1.collections.object.WeaviateObject;
+import io.weaviate.client6.v1.api.WeaviateClient;
+import io.weaviate.client6.v1.api.collections.query.Metadata;
+
 import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
 
 public class Step4_QuerySimpleGet {
     public static void run(WeaviateClient client, String productId) throws IOException {
         var products = client.collections.use(Constants.PRODUCT_COLLECTION_NAME);
-        Optional<WeaviateObject<Map<String, Object>>> result = products.data.get(productId);
-        System.out.println("Fetched product: " + result);
+        var result = products.query.byId(productId, query -> query.returnProperties("name")
+                .returnMetadata(Metadata.ID, Metadata.VECTOR, Metadata.DISTANCE));
+
+        System.out.println("Fetched object properties: " + result.get().properties());
+        System.out.println("Fetched object vectors: " + result.get().vectors());
+        System.out.println("Fetched object metadata: " + result.get().metadata());
     }
 }

@@ -1,17 +1,21 @@
 package io.weaviate;
 
-import io.weaviate.client6.WeaviateClient;
-import io.weaviate.client6.v1.collections.aggregate.AggregateGroupByRequest.GroupBy;
-import io.weaviate.client6.v1.collections.aggregate.AggregateGroupByResponse;
-import io.weaviate.client6.v1.collections.aggregate.Metric;
+import io.weaviate.client6.v1.api.WeaviateClient;
+import io.weaviate.client6.v1.api.collections.aggregate.Aggregation;
+import io.weaviate.client6.v1.api.collections.aggregate.GroupBy;
 
 public class Step6_QueryAggregate {
     public static void run(WeaviateClient client) {
         var products = client.collections.use(Constants.PRODUCT_COLLECTION_NAME);
-        AggregateGroupByResponse response = products.aggregate.overAll(
-                new GroupBy("name"),
-                with -> with.metrics(
-                        Metric.integer("price", calculate -> calculate.min().max().count())).includeTotalCount());
+
+        var response = products.aggregate.overAll(
+                with -> with
+                        .metrics(
+                                Aggregation.integer("price",
+                                        calculate -> calculate.median().max().count()))
+                        .includeTotalCount(true),
+                new GroupBy("name"));
+
         System.out.println("Aggregate query result: " + response);
     }
 }
