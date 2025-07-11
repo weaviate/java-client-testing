@@ -1,6 +1,6 @@
 package io.weaviate;
 
-import io.weaviate.client6.WeaviateClient;
+import io.weaviate.client6.v1.api.WeaviateClient;
 import java.io.IOException;
 
 public class Step8_CollectionsDelete {

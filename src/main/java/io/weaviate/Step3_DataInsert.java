@@ -1,7 +1,7 @@
 package io.weaviate;
 
-import io.weaviate.client6.WeaviateClient;
-import io.weaviate.client6.v1.collections.object.WeaviateObject;
+import io.weaviate.client6.v1.api.WeaviateClient;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

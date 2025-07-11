@@ -1,14 +1,14 @@
 package io.weaviate;
 
-import io.weaviate.client6.WeaviateClient;
-import io.weaviate.client6.v1.collections.object.WeaviateObject;
+import io.weaviate.client6.v1.api.WeaviateClient;
+import io.weaviate.client6.v1.api.collections.query.Metadata;
+
 import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
 
 public class Step4_QuerySimpleGet {
     public static void run(WeaviateClient client, String productId) throws IOException {
-        // Get and print the obect with the ID "productId"
+        // Get the object with the ID "productId"
+        // Also print out the metadata, properties, and vector of the object
         //
         // See Weaviate docs: 
         //      Get object by ID: https://java-client-v6--weaviate-docs.netlify.app/docs/weaviate/search/basics#get-object-by-id

@@ -1,8 +1,6 @@
 package io.weaviate;
 
-import io.weaviate.client6.WeaviateClient;
-import io.weaviate.client6.v1.collections.query.QueryResult;
-import java.util.Map;
+import io.weaviate.client6.v1.api.WeaviateClient;
 
 public class Step5_QueryNearText {
     public static void run(WeaviateClient client) {
