@@ -8,8 +8,9 @@ import java.io.IOException;
 public class Step4_QuerySimpleGet {
     public static void run(WeaviateClient client, String productId) throws IOException {
         var products = client.collections.use(Constants.PRODUCT_COLLECTION_NAME);
-        var result = products.query.byId(productId, query -> query.returnProperties("name")
-                .returnMetadata(Metadata.ID, Metadata.VECTOR, Metadata.DISTANCE));
+        var result = products.query.byId(productId,
+                query -> query.returnProperties(Constants.PROPERTY_NAME, Constants.PROPERTY_DESCRIPTION)
+                        .returnMetadata(Metadata.ID, Metadata.VECTOR));
 
         System.out.println("Fetched object properties: " + result.get().properties());
         System.out.println("Fetched object vectors: " + result.get().vectors());

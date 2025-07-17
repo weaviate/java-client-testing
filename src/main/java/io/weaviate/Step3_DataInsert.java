@@ -12,19 +12,14 @@ public class Step3_DataInsert {
         List<String> createdProductIds = new ArrayList<>();
         var products = client.collections.use(Constants.PRODUCT_COLLECTION_NAME);
 
-        var p1 = products.data.insert(
-                Map.of("name", "Some shirt", "description", "A very nice shirt...", "price", 1000));
-        createdProductIds.add(p1.metadata().uuid());
+        // Loop through the data from the Constants file
+        for (var productData : Constants.PRODUCTS_DATA) {
+            var result = products.data.insert(productData);
+            createdProductIds.add(result.metadata().uuid());
+        }
 
-        var p2 = products.data.insert(
-                Map.of("name", "Some phone is coming out", "description", "New features, new hardware...", "price",
-                        800));
-        createdProductIds.add(p2.metadata().uuid());
-
-        var p3 = products.data.insert(
-                Map.of("name", "Some watch is coming out", "description", "Need to know what time it is?...", "price",
-                        600));
-        createdProductIds.add(p3.metadata().uuid());
+        // var result = products.data.insertMany(Constants.PRODUCTS_DATA);
+        // createdProductIds.addAll(result.uuids());
 
         return createdProductIds;
     }

@@ -11,5 +11,9 @@ public class Step7_DataDelete {
         for (var productId : productIds) {
             products.data.delete(productId);
         }
+
+        for (var productId : productIds) {
+            System.out.println("Product exists: " + products.data.exists(productId));
+        }
     }
 }
