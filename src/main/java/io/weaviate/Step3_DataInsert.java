@@ -8,10 +8,7 @@ import java.util.List;
 
 public class Step3_DataInsert {
     public static List<String> run(WeaviateClient client) throws IOException {
-        // Create two "Product" objects:
-        //      {name: "Some shirt", description": "A very nice shirt...", price: 20}
-        //      {name: "Some jacket", description": "A very nice jacket...", price: 60}
-        //      {name: "Some phone", description": "A very nice phone...", price: 1000}
+        // Create three "Product" objects, values in the Constants.java file
         //
         // Return the created object IDs in the "createdProductIds" list
         //
